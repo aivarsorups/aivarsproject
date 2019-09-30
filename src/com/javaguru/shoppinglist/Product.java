@@ -1,20 +1,39 @@
 package com.javaguru.shoppinglist;
 
+
 import java.math.BigDecimal;
 import java.util.Objects;
 
+
 public class Product {
+
 
     private Long id;
     private String name;
     private BigDecimal price;
 
-    private enum Category{FRUITS, VEGETABLES}
-    private Category cat;
-
     private BigDecimal discount;
+    private BigDecimal actualPrice;
+
     private String description;
 
+
+
+    public Product(String name, BigDecimal price, BigDecimal discount, BigDecimal actualPrice, String description) {
+        this.name = name;
+        this.price = price;
+        this.discount = discount;
+        this.actualPrice = actualPrice;
+        this.description = description;
+    }
+
+    public Product(String name, BigDecimal price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.discount = discount;
+        this.description = description;
+    }
 
     public Long getId() {
         return id;
@@ -24,10 +43,9 @@ public class Product {
         this.id = id;
     }
 
-    public String getName() {if((name.length()>3)&&(name.length()<32)){
-        return name;}else{
-        System.out.println("Name is to short");
-    return null;}
+    public String getName() {
+        return name;
+
     }
 
     public void setName(String name) {
@@ -35,9 +53,8 @@ public class Product {
     }
 
     public BigDecimal getPrice() {
-        if (price.compareTo(BigDecimal.ZERO) > 0) {
-            return price;
-        } else return null;
+
+        return price;
     }
 
     public void setPrice(BigDecimal price) {
@@ -45,20 +62,20 @@ public class Product {
 
     }
 
-    public Category getCat() {
-        return cat;
-    }
-
-    public void setCat(Category cat) {
-        this.cat = cat;
-    }
-
-    public BigDecimal getDiscount() {if((discount.compareTo(BigDecimal.ZERO) > 0) && (discount.compareTo(BigDecimal.ONE) < 0)){
-        return discount;}else return null;
+    public BigDecimal getDiscount() {
+        return discount;
     }
 
     public void setDiscount(BigDecimal discount) {
         this.discount = discount;
+    }
+
+    public BigDecimal getActualPrice() {
+        return actualPrice;
+    }
+
+    public void setActualPrice(BigDecimal actualPrice) {
+        this.actualPrice = actualPrice;
     }
 
     public String getDescription() {
@@ -70,6 +87,18 @@ public class Product {
     }
 
     @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", discount=" + discount +
+                ", actualPrice=" + actualPrice +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Product)) return false;
@@ -78,11 +107,12 @@ public class Product {
                 Objects.equals(getName(), product.getName()) &&
                 Objects.equals(getPrice(), product.getPrice()) &&
                 Objects.equals(getDiscount(), product.getDiscount()) &&
+                Objects.equals(actualPrice, product.actualPrice) &&
                 Objects.equals(getDescription(), product.getDescription());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getPrice(), getDiscount(), getDescription());
+        return Objects.hash(getId(), getName(), getPrice(), getDiscount(), actualPrice, getDescription());
     }
 }
