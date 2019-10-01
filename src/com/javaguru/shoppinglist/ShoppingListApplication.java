@@ -12,12 +12,15 @@ class ShoppingListApplication {
     public static void main(String[] args) {
         Map<Long, Product> productRepository = new HashMap<>();
         Long productIdSequence = 0L;
+
         while (true) {
             Scanner scanner = new Scanner(System.in);
             try {
                 System.out.println("1. Create product");
                 System.out.println("2. Find product by id");
-                System.out.println("3. Exit");
+                System.out.println("3. Delete product");
+                System.out.println("4. Change product information");
+                System.out.println("5. Exit");
                 Integer userInput = Integer.valueOf(scanner.nextLine());
                 switch (userInput) {
                     case 1:
@@ -42,10 +45,10 @@ class ShoppingListApplication {
                             System.out.println("Discount cant be more than 100%");
                             break;
                         }
-                        BigDecimal actualPrice= price.subtract(discount.divide(new BigDecimal(100)).multiply(price));
+                        BigDecimal actualPrice = price.subtract(discount.divide(new BigDecimal(100)).multiply(price));
                         System.out.println("Enter description");
-                        String description=scanner.nextLine();
-                        Product product = new Product(name, price,discount,actualPrice, description);
+                        String description = scanner.nextLine();
+                        Product product = new Product(name, price, discount, actualPrice, description);
                         product.setName(name);
                         product.setPrice(price);
                         product.setDiscount(discount);
@@ -63,6 +66,54 @@ class ShoppingListApplication {
                         System.out.println(findProductResult);
                         break;
                     case 3:
+                        System.out.println(productRepository.values());
+                        System.out.println("Enter product id to delete");
+                        long idToDelete = scanner.nextLong();
+                        if (productRepository.containsKey(idToDelete)) {
+                            productRepository.remove(idToDelete);
+                        } else {
+                            System.out.println("wrong id");
+                        }
+                        break;
+                    case 4:
+                        System.out.println(productRepository.values());
+                        System.out.println("Enter product id to change information");
+                        long idToChangeProduct = scanner.nextLong();
+                        if (!productRepository.containsKey(idToChangeProduct)){break;}else {
+                            System.out.println("Enter product name: ");
+                            String newName = scanner.next();
+                            if ((newName.length() < 3) || (newName.length() > 32)) {
+                                System.out.println("Name is to short");
+                                break;
+                            }
+                            System.out.println("Enter product price: ");
+                            BigDecimal newPrice = new BigDecimal(scanner.next());
+                            if (newPrice.compareTo(BigDecimal.ZERO) <= 0) {
+                                System.out.println("Price must be positive number");
+                                break;
+                            }
+                            System.out.println("Enter product discount");
+                            BigDecimal newDiscount = new BigDecimal(scanner.next());
+                            if ((newDiscount.compareTo(BigDecimal.valueOf(100))) > 0) {
+                                System.out.println("Discount cant be more than 100%");
+                                break;
+                            }
+                            BigDecimal newActualPrice = newPrice.subtract(newDiscount.divide(new BigDecimal(100)).multiply(newPrice));
+                            System.out.println("Enter description");
+                            String newDescription = scanner.next();
+                            Product newProduct = new Product(newName, newPrice, newDiscount, newActualPrice, newDescription);
+                            newProduct.setName(newName);
+                            newProduct.setPrice(newPrice);
+                            newProduct.setDiscount(newDiscount);
+                            newProduct.setActualPrice(newActualPrice);
+                            newProduct.setDescription(newDescription);
+                            newProduct.setId(idToChangeProduct);
+                            productRepository.put(idToChangeProduct, newProduct);
+                            System.out.println("Id to chage"+idToChangeProduct);
+                            break;
+                        }
+
+                    case 5:
                         return;
                 }
             } catch (Exception e) {
