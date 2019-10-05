@@ -1,9 +1,11 @@
 package com.javaguru.shoppinglist;
 
+
+
+import com.javaguru.shoppinglist.domain.Product;
+
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -26,7 +28,7 @@ class ShoppingListApplication {
                     case 1:
                         System.out.println("Enter product category");
 
-
+                        Category category=Category.valueOf(scanner.nextLine());
                         System.out.println("Enter product name: ");
                         String name = scanner.nextLine();
                         if ((name.length() < 3) || (name.length() > 32)) {
@@ -48,7 +50,7 @@ class ShoppingListApplication {
                         BigDecimal actualPrice = price.subtract(discount.divide(new BigDecimal(100)).multiply(price));
                         System.out.println("Enter description");
                         String description = scanner.nextLine();
-                        Product product = new Product(name, price, discount, actualPrice, description);
+                        Product product = new Product(category, name, price, discount, actualPrice, description);
                         product.setName(name);
                         product.setPrice(price);
                         product.setDiscount(discount);
@@ -80,6 +82,9 @@ class ShoppingListApplication {
                         System.out.println("Enter product id to change information");
                         long idToChangeProduct = scanner.nextLong();
                         if (!productRepository.containsKey(idToChangeProduct)){break;}else {
+                            System.out.println("Enter product category");
+
+                            Category newCategory=Category.valueOf(scanner.nextLine());
                             System.out.println("Enter product name: ");
                             String newName = scanner.next();
                             if ((newName.length() < 3) || (newName.length() > 32)) {
@@ -101,7 +106,8 @@ class ShoppingListApplication {
                             BigDecimal newActualPrice = newPrice.subtract(newDiscount.divide(new BigDecimal(100)).multiply(newPrice));
                             System.out.println("Enter description");
                             String newDescription = scanner.next();
-                            Product newProduct = new Product(newName, newPrice, newDiscount, newActualPrice, newDescription);
+                            Product newProduct = new Product(newCategory, newName, newPrice, newDiscount, newActualPrice, newDescription);
+                            newProduct.setCategory(newCategory);
                             newProduct.setName(newName);
                             newProduct.setPrice(newPrice);
                             newProduct.setDiscount(newDiscount);
