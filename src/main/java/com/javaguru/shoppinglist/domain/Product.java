@@ -20,13 +20,6 @@ public class Product {
     private String description;
     private Category category;
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 
     public Product(Category category, String name, BigDecimal price, BigDecimal discount, BigDecimal actualPrice, String description) {
         this.name = name;
@@ -72,10 +65,6 @@ public class Product {
 
     public void setDiscount(BigDecimal discount) {
         this.discount = discount;
-    }
-
-    public BigDecimal getActualPrice() {
-        return actualPrice;
     }
 
     public void setActualPrice(BigDecimal actualPrice) {

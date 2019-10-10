@@ -16,5 +16,6 @@ public enum Category {
     public int getValue() {
         return this.value;
 
+
     }
 }
