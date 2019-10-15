@@ -25,10 +25,11 @@ public class ProductInMemoryRepository {
         productRepository.remove(id);
     }
 
-    public void changeProductInformation(Long id, Product product) {
+    public Product changeProductInformation(Long id, Product product) {
         findProductById(id);
         product.setId(id);
         productRepository.put(product.getId(), product);
+        return product;
 
     }
 

@@ -20,6 +20,17 @@ public class Product {
     private String description;
     private Category category;
 
+    public Product(String name) {
+        this.name = name;
+    }
+
+    public Product(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Product() {
+
+    }
 
     public Product(Category category, String name, BigDecimal price, BigDecimal discount, BigDecimal actualPrice, String description) {
         this.name = name;

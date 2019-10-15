@@ -12,6 +12,9 @@ public class ProductDiscountRule implements ProductValidationRule {
     @Override
     public void validate(Product product) {
         checkNotNull(product);
+        if (product.getDiscount() == null) {
+            throw new ProductValidationException("Product discount cant be null");
+        }
         if (product.getDiscount().compareTo(MAX_DISCOUNT) > 0) {
             throw new ProductValidationException("Discount cant be more than 100%");
         }

@@ -93,6 +93,7 @@ public class ConsoleUI {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter product id to delete");
         Long id = scanner.nextLong();
+        productService.findProductById(id);
         productService.deleteProductById(id);
     }
 
