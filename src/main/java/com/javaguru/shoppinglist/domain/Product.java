@@ -32,6 +32,10 @@ public class Product {
 
     }
 
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public Product(Category category, String name, BigDecimal price, BigDecimal discount, BigDecimal actualPrice, String description) {
         this.name = name;
         this.price = price;

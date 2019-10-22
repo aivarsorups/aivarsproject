@@ -11,10 +11,7 @@ public class ProductUniqueNameValidationRule implements ProductValidationRule {
         this.repository = repository;
     }
 
-    @Override
-    public void checkNotNull(Product product) {
 
-    }
 
     @Override
     public void validate(Product product) {

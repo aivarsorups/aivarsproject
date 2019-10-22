@@ -6,6 +6,7 @@ import com.javaguru.shoppinglist.service.validation.ProductValidationService;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -33,15 +34,15 @@ public class ProductServiceTest {
     @InjectMocks
     private ProductService victim;
     @Captor
-    private  ArgumentCaptor<Product> productCaptor;
+    private ArgumentCaptor<Product> productCaptor;
 
     @Test
     public void shouldCreateProduct() {
-        Product product=product();
+        Product product = product();
         when(repository.save(product)).thenReturn(product);
-        Long result=victim.createProduct(product);
+        Long result = victim.createProduct(product);
         verify(validationService).validate(productCaptor.capture());
-        Product captorResult=productCaptor.getValue();
+        Product captorResult = productCaptor.getValue();
         assertThat(captorResult).isEqualTo(product);
         assertThat(product.getId()).isEqualTo(result);
     }
@@ -49,23 +50,23 @@ public class ProductServiceTest {
     @Test
     public void shouldFindProductById() {
         when(repository.findProductById(100L)).thenReturn(Optional.ofNullable(product()));
-        Product result=victim.findProductById(100L);
+        Product result = victim.findProductById(100L);
         assertThat(result).isEqualTo(product());
     }
+
     @Test
-    public void shouldThrowExceptionProductNotFind(){
+    public void shouldThrowExceptionProductNotFound() {
         when(repository.findProductById(any())).thenReturn(Optional.empty());
-        assertThatThrownBy(()->victim.findProductById(100L))
+        assertThatThrownBy(() -> victim.findProductById(100L))
                 .isInstanceOf(NoSuchElementException.class)
                 .hasMessage("Product not found, id:100");
     }
 
     @Test
     public void deleteProductById() {
-        Product product=new Product();
-repository.save(product());
-repository.deleteProductById(100L);
-verify(victim).deleteProductById(100L);
+        Product product = new Product();
+        repository.save(product());
+        repository.deleteProductById(100L);
 
 
 
@@ -74,8 +75,9 @@ verify(victim).deleteProductById(100L);
     @Test
     public void changeProductInformation() {
     }
-    private  Product product(){
-        Product product=new Product();
+
+    private Product product() {
+        Product product = new Product();
         product.setName("TEST_NAME");
         product.setPrice(new BigDecimal(25));
         product.setDiscount(new BigDecimal(20));

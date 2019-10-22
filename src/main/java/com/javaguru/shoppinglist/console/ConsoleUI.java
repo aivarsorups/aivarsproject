@@ -54,7 +54,7 @@ public class ConsoleUI {
     private void createProduct() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter product category FRUITS or VEGETABLES");
-        Category category = Category.valueOf(scanner.nextLine());
+        Category category = Category.valueOf(scanner.nextLine().toUpperCase());
 
         System.out.println("Enter product name: ");
         String name = scanner.nextLine();
@@ -65,16 +65,16 @@ public class ConsoleUI {
         System.out.println("Enter product discount");
         BigDecimal discount = new BigDecimal(scanner.nextLine());
 
-        BigDecimal actualPrice = price.subtract(discount.divide(new BigDecimal(100)).multiply(price));
+
 
         System.out.println("Enter description");
         String description = scanner.nextLine();
 
-        Product product = new Product(category, name, price, discount, actualPrice, description);
+        Product product = new Product();
+        product.setCategory(category);
         product.setName(name);
         product.setPrice(price);
         product.setDiscount(discount);
-        product.setActualPrice(actualPrice);
         product.setDescription(description);
         Long id = productService.createProduct(product);
         System.out.println("Result: " + id);
@@ -105,7 +105,7 @@ public class ConsoleUI {
         productService.findProductById(id);
 
         System.out.println("Enter product category FRUITS or VEGETABLES");
-        Category category = Category.valueOf(scanner.nextLine());
+        Category category = Category.valueOf(scanner.nextLine().toUpperCase());
 
         System.out.println("Enter product name: ");
         String name = scanner.nextLine();
@@ -113,11 +113,15 @@ public class ConsoleUI {
         BigDecimal price = new BigDecimal(scanner.nextLine());
         System.out.println("Enter product discount");
         BigDecimal discount = new BigDecimal(scanner.nextLine());
-        BigDecimal actualPrice = price.subtract(discount.divide(new BigDecimal(100)).multiply(price));
+
         System.out.println("Enter description");
         String description = scanner.nextLine();
-        Product product = new Product(category, name, price, discount, actualPrice, description);
-
+        Product product = new Product();
+        product.setCategory(category);
+        product.setName(name);
+        product.setPrice(price);
+        product.setDiscount(discount);
+        product.setDescription(description);
         productService.changeProductInformation(id, product);
 
         System.out.println("Result: " + id);

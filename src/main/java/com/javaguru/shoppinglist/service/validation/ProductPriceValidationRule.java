@@ -19,8 +19,5 @@ public class ProductPriceValidationRule implements ProductValidationRule {
         }
     }
 
-    @Override
-    public void checkNotNull(Product product) {
 
-    }
 }

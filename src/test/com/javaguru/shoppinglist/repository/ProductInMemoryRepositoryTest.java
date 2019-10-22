@@ -43,23 +43,27 @@ public class ProductInMemoryRepositoryTest {
 
     @Test
     public void deleteProductById() {
+        Product result1=victim.save(product);
+        assertThat(result1).isEqualTo(expectedProduct());
+        victim.deleteProductById(0L);
+        Optional<Product> result = victim.findProductById(0L);
+        assertThat(result).isEqualTo(Optional.empty());
 
-       victim.deleteProductById(product.getId());
 
     }
 
     @Test
     public void changeProductInformation() {
-        Product product=new Product();
+        Product product = new Product();
         victim.save(product);
-        Product result=victim.changeProductInformation(0L,product());
+        Product result = victim.changeProductInformation(0L, product());
         assertThat(result).isEqualTo(expectedProduct());
     }
 
     @Test
     public void existsByName() {
         victim.save(product);
-        boolean result=victim.existsByName(PRODUCT_NAME);
+        boolean result = victim.existsByName(PRODUCT_NAME);
         assertThat(result).isTrue();
     }
 

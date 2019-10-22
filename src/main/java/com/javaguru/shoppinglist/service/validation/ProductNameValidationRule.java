@@ -3,8 +3,8 @@ package com.javaguru.shoppinglist.service.validation;
 import com.javaguru.shoppinglist.domain.Product;
 
 public class ProductNameValidationRule implements ProductValidationRule {
-    final int MAX_NAME_LENGTH = 32;
-    final int MIN_NAME_LENGTH = 3;
+    private final int MAX_NAME_LENGTH = 32;
+    private final int MIN_NAME_LENGTH = 3;
 
 
     @Override
@@ -19,11 +19,6 @@ public class ProductNameValidationRule implements ProductValidationRule {
         if (product.getName().length() > MAX_NAME_LENGTH) {
             throw new ProductValidationException("Product name cant be longer than 32 signs");
         }
-
-    }
-
-    @Override
-    public void checkNotNull(Product product) {
 
     }
 }
