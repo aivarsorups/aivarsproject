@@ -1,9 +1,11 @@
 package com.javaguru.shoppinglist.service.validation;
 
 import com.javaguru.shoppinglist.domain.Product;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+@Component
 public class ProductDiscountRule implements ProductValidationRule {
     private final BigDecimal MAX_DISCOUNT = new BigDecimal(100);
     private final BigDecimal MIN_DISCOUNT = new BigDecimal(0);
@@ -27,8 +29,4 @@ public class ProductDiscountRule implements ProductValidationRule {
 
     }
 
-    @Override
-    public void checkNotNull(Product product) {
-
-    }
 }

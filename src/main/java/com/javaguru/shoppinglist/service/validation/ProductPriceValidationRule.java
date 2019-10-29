@@ -1,11 +1,14 @@
 package com.javaguru.shoppinglist.service.validation;
 
 import com.javaguru.shoppinglist.domain.Product;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+@Component
 public class ProductPriceValidationRule implements ProductValidationRule {
+
     private final BigDecimal MIN_PRICE_LIMIT = new BigDecimal(BigInteger.ZERO);
 
     @Override

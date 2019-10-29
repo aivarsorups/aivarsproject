@@ -2,17 +2,19 @@ package com.javaguru.shoppinglist.console;
 
 import com.javaguru.shoppinglist.Category;
 import com.javaguru.shoppinglist.domain.Product;
-import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
 import com.javaguru.shoppinglist.service.ProductService;
-import com.javaguru.shoppinglist.service.validation.ProductValidationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
 
+@Component
 public class ConsoleUI {
 
     private final ProductService productService;
 
+    @Autowired
     public ConsoleUI(ProductService productService) {
         this.productService = productService;
     }
@@ -25,7 +27,11 @@ public class ConsoleUI {
                 System.out.println("2. Find product by id");
                 System.out.println("3. Delete product by id");
                 System.out.println("4. Change product information");
-                System.out.println("5. Exit");
+                System.out.println("5. Show all product by category");
+                System.out.println("6. Show all products");
+
+                System.out.println("7. Exit");
+
                 int userInput = scanner.nextInt();
                 switch (userInput) {
                     case 1:
@@ -41,7 +47,14 @@ public class ConsoleUI {
                         changeProductInformation();
                         break;
                     case 5:
+                        takeProductsByCategory();
+                        break;
+                    case 6:
+                        findAllProducts();
+                        break;
+                    case 7:
                         return;
+
 
                 }
             } catch (Exception e) {
@@ -49,6 +62,9 @@ public class ConsoleUI {
             }
         }
 
+    }
+    private void findAllProducts(){
+        productService.findAll();
     }
 
     private void createProduct() {
@@ -64,7 +80,6 @@ public class ConsoleUI {
 
         System.out.println("Enter product discount");
         BigDecimal discount = new BigDecimal(scanner.nextLine());
-
 
 
         System.out.println("Enter description");
@@ -95,6 +110,14 @@ public class ConsoleUI {
         Long id = scanner.nextLong();
         productService.findProductById(id);
         productService.deleteProductById(id);
+    }
+
+    private void takeProductsByCategory() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter product category");
+        Category category = Category.valueOf(scanner.nextLine().toUpperCase());
+        System.out.println(productService.findAllCategories(category));
+
     }
 
     private void changeProductInformation() {

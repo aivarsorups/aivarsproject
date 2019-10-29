@@ -1,19 +1,14 @@
 package com.javaguru.shoppinglist.repository;
 
+import com.javaguru.shoppinglist.Category;
 import com.javaguru.shoppinglist.domain.Product;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.Mockito.verify;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
 
 public class ProductInMemoryRepositoryTest {
     private static final String PRODUCT_NAME = "TEST_NAME";
@@ -21,15 +16,28 @@ public class ProductInMemoryRepositoryTest {
     private static final long PRODUCT_ID = 0L;
     private static final BigDecimal PRODUCT_PRICE = new BigDecimal(100);
     private static final BigDecimal PRODUCT_DISCOUNT = new BigDecimal(50);
+    private static final BigDecimal PRODUCT_ACTUALPRICE=new BigDecimal("50.0");
     private ProductInMemoryRepository victim = new ProductInMemoryRepository();
     private Product product = product();
-    @Mock
-    private ProductInMemoryRepository victim2;
 
     @Test
     public void shouldSave() {
         Product result = victim.save(product);
-        assertThat(result).isEqualTo(expectedProduct());
+        assertThat(result).isEqualTo(product );
+
+    }
+    @Test
+    public void shouldFindAllProducts(){
+        victim.save(product);
+        victim.save(expectedProduct());
+        expectedProduct().setId(1L);
+
+
+
+        List result=victim.findAllProducts();
+        assertThat(product).isIn(result);
+        assertThat(expectedProduct()).isIn(result);
+
 
     }
 
@@ -44,20 +52,34 @@ public class ProductInMemoryRepositoryTest {
     @Test
     public void deleteProductById() {
         Product result1=victim.save(product);
-        assertThat(result1).isEqualTo(expectedProduct());
+        assertThat(result1).isEqualTo(product);
         victim.deleteProductById(0L);
-        Optional<Product> result = victim.findProductById(0L);
-        assertThat(result).isEqualTo(Optional.empty());
+        try{Optional<Product> result = victim.findProductById(0L);
+        assertThat(result).isEqualTo(Optional.empty());}catch (NullPointerException r){
+            System.out.println("test completed");
+        }
 
 
     }
+    @Test
+    public void shouldFindAllProductByCategory(){
+
+        assert(victim.findAllCategories(Category.FRUITS).isEmpty());
+        victim.save(product);
+        product.setCategory(Category.FRUITS);
+        List result=victim.findAllCategories(Category.FRUITS);
+       assertThat(product).isIn(result);
+    }
+
 
     @Test
     public void changeProductInformation() {
-        Product product = new Product();
+
         victim.save(product);
-        Product result = victim.changeProductInformation(0L, product());
-        assertThat(result).isEqualTo(expectedProduct());
+        Product result = victim.changeProductInformation(0L, product);
+        product.setActualPrice(PRODUCT_ACTUALPRICE);
+        product.setId(PRODUCT_ID);
+        assertThat(result).isEqualTo(product);
     }
 
     @Test
@@ -77,6 +99,16 @@ public class ProductInMemoryRepositoryTest {
     }
 
     private Product expectedProduct() {
+        Product product = new Product();
+        product.setId(PRODUCT_ID);
+        product.setName(PRODUCT_NAME);
+        product.setPrice(PRODUCT_PRICE);
+        product.setActualPrice(PRODUCT_ACTUALPRICE);
+        product.setDiscount(PRODUCT_DISCOUNT);
+        product.setDescription(PRODUCT_DESCRIPTION);
+        return product;
+    }
+    private Product expectedProductWithNullActualPrice() {
         Product product = new Product();
         product.setId(PRODUCT_ID);
         product.setName(PRODUCT_NAME);
