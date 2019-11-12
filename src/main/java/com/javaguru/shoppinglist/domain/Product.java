@@ -6,7 +6,6 @@ import com.javaguru.shoppinglist.Category;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-
 public class Product {
 
 
@@ -88,6 +87,10 @@ public class Product {
 
     public void setActualPrice(BigDecimal actualPrice) {
         this.actualPrice = actualPrice;
+    }
+
+    public BigDecimal getActualPrice() {
+        return actualPrice;
     }
 
     public String getDescription() {

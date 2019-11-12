@@ -37,10 +37,10 @@ public class ProductService {
     }
 
     public List findAllCategories(Category category) {
-        return repository.findAllCategories(category);
+        return repository.findAllProductsByCategory(category);
     }
-    public void findAll(){
-        System.out.println(repository.findAllProducts());
+    public List<Product>findAll(){
+        return repository.findAllProducts();
     }
 
     public void changeProductInformation(Long id, Product product) {

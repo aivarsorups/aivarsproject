@@ -1,0 +1,8 @@
+FROM mysql:workbench
+
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=shoppinglist
+#ENV MYSQL_USER=root
+ENV MYSQL_PASSWORD=root
+
+root@localhost:3306

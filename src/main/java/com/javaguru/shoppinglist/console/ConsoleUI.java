@@ -38,7 +38,7 @@ public class ConsoleUI {
                         createProduct();
                         break;
                     case 2:
-                        findProduct();
+                        findProductById();
                         break;
                     case 3:
                         deleteProduct();
@@ -64,7 +64,7 @@ public class ConsoleUI {
 
     }
     private void findAllProducts(){
-        productService.findAll();
+        System.out.println(productService.findAll());
     }
 
     private void createProduct() {
@@ -96,7 +96,7 @@ public class ConsoleUI {
 
     }
 
-    private void findProduct() {
+    private void findProductById() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter product id: ");
         Long id = scanner.nextLong();

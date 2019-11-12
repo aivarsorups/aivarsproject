@@ -2,13 +2,16 @@ package com.javaguru.shoppinglist.repository;
 
 import com.javaguru.shoppinglist.Category;
 import com.javaguru.shoppinglist.domain.Product;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Component
+@Repository
+@Profile("inmemorydb")
 public class ProductInMemoryRepository {
     private Long productIdSequence = 0L;
     private Map<Long, Product> productRepository = new HashMap<>();
@@ -47,13 +50,14 @@ public class ProductInMemoryRepository {
 
     }
 
-    public List findAllCategories(Category category) {
+    public List findAllProductsByCategory(Category category) {
         return productRepository.values().stream()
                 .filter(productCategory -> productCategory.getCategory().equals(category)).collect(Collectors.toList());
 
     }
-    public List findAllProducts(){
-        return  productRepository.values().stream().collect(Collectors.toList());
+
+    public List<Product> findAllProducts() {
+        return new ArrayList<>(productRepository.values());
     }
 
     public boolean existsByName(String name) {

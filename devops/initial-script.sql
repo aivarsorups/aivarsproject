@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS products(
+id BIGINT NOT NULL AUTO_INCREMENT,
+name VARCHAR (100) NOT NULL,
+category VARCHAR (100)NULL,
+price decimal (2)NOT NULL,
+discount DOUBLE,
+actualprice decimal (2),
+description VARCHAR (100)NULL,
+created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (id)
+)
+
+ENGINE=InnoDB
+AUTO_INCREMENT =1;
+
