@@ -2,26 +2,36 @@ package com.javaguru.shoppinglist.service;
 
 import com.javaguru.shoppinglist.Category;
 import com.javaguru.shoppinglist.domain.Product;
-import com.javaguru.shoppinglist.repository.ProductInMemoryRepository;
+import com.javaguru.shoppinglist.repository.ProductRepository;
+import com.javaguru.shoppinglist.service.validation.ProductNameUpdateValidation;
 import com.javaguru.shoppinglist.service.validation.ProductValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@Component
+//import com.javaguru.shoppinglist.service.validation.ProductNameUpdateValidation;
+
+@Service
 public class ProductService {
-    private ProductInMemoryRepository repository;
+    private ProductRepository repository;
     private ProductValidationService validationService;
+    //private ProductNameUpdateValidation productNameUpdateValidation;
 
     @Autowired
-    public ProductService(ProductInMemoryRepository repository,
-                          ProductValidationService validationService) {
+    public ProductService(ProductRepository repository,
+                          ProductValidationService validationService
+                          //ProductNameUpdateValidation productNameUpdateValidation
+    ) {
         this.repository = repository;
         this.validationService = validationService;
+        //this.productNameUpdateValidation = productNameUpdateValidation;
     }
 
+    @Transactional
     public Long createProduct(Product product) {
         validationService.validate(product);
         Product createdProduct = repository.save(product);
@@ -43,7 +53,7 @@ public class ProductService {
         return repository.findAllProducts();
     }
 
-    public void changeProductInformation(Long id, Product product) {
+    public void changeProductInformation(Long id, Product product, Product product2) {
         findProductById(id);
         validationService.validate(product);
         repository.changeProductInformation(id, product);

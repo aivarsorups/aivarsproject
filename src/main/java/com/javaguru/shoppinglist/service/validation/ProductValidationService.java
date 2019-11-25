@@ -3,14 +3,15 @@ package com.javaguru.shoppinglist.service.validation;
 import com.javaguru.shoppinglist.domain.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-@Component
+@Service
 public class ProductValidationService {
     private final Set<ProductValidationRule> validationRules;
 
-    @Autowired
+
     public ProductValidationService(Set<ProductValidationRule> validationRules) {
         this.validationRules = validationRules;
     }

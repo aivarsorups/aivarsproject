@@ -3,20 +3,30 @@ package com.javaguru.shoppinglist.domain;
 
 import com.javaguru.shoppinglist.Category;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Entity
+@Table(name = "products2")
 public class Product {
 
-
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "name", unique =true, nullable = false)
     private String name;
+    @Column(name = "price")
     private BigDecimal price;
-
+    @Column(name = "discount")
     private BigDecimal discount;
+    @Column(name = "actual_price")
     private BigDecimal actualPrice;
-
+    @Column(name = "description")
     private String description;
+    @Column(name = "category")
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     public Product(String name) {
