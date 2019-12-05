@@ -2,7 +2,6 @@ package com.javaguru.shoppinglist.repository;
 
 import com.javaguru.shoppinglist.Category;
 import com.javaguru.shoppinglist.domain.Product;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
