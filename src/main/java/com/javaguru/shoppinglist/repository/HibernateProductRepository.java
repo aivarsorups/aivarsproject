@@ -25,7 +25,7 @@ import static com.javaguru.shoppinglist.repository.ProductInMemoryRepository.MAX
 @Transactional
 public class HibernateProductRepository implements ProductRepository {
     private void setProductActucalPrice(Product product){
-        product.setActualPrice(product.getPrice().subtract(product.getDiscount()
+        product.setActual_price(product.getPrice().subtract(product.getDiscount()
                 .divide(MAX_PERCENT_FOR_DISCOUNT).multiply(product.getPrice())));
     }
 

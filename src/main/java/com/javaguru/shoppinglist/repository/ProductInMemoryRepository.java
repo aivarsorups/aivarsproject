@@ -17,10 +17,10 @@ public class ProductInMemoryRepository implements ProductRepository {
     private Map<Long, Product> productRepository = new HashMap<>();
     static BigDecimal MAX_PERCENT_FOR_DISCOUNT = new BigDecimal(100);
 
-    public void calculateActualPrice(Long id) {
+    private void calculateActualPrice(Long id) {
         BigDecimal actualPrice = productRepository.get(id).getPrice().subtract(productRepository.get(id).getDiscount()
                 .divide(MAX_PERCENT_FOR_DISCOUNT).multiply(productRepository.get(id).getPrice()));
-        productRepository.get(id).setActualPrice(actualPrice);
+        productRepository.get(id).setActual_price(actualPrice);
     }
 
 

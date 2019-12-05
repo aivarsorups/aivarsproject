@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -17,22 +18,28 @@ import java.util.NoSuchElementException;
 
 @Service
 public class ProductService {
+    private static final BigDecimal MAX_PERCENT_FOR_DISCOUNT = new BigDecimal(100);
     private ProductRepository repository;
     private ProductValidationService validationService;
-    //private ProductNameUpdateValidation productNameUpdateValidation;
+    private void actualPriceCalculate(Product product){
+        product.setActual_price(product.getPrice().subtract(product.getDiscount()
+                .divide(MAX_PERCENT_FOR_DISCOUNT).multiply(product.getPrice())));
+    }
+
 
     @Autowired
     public ProductService(ProductRepository repository,
                           ProductValidationService validationService
-                          //ProductNameUpdateValidation productNameUpdateValidation
+
     ) {
         this.repository = repository;
         this.validationService = validationService;
-        //this.productNameUpdateValidation = productNameUpdateValidation;
+
     }
 
     @Transactional
     public Long createProduct(Product product) {
+        actualPriceCalculate(product);
         validationService.validate(product);
         Product createdProduct = repository.save(product);
         return createdProduct.getId();
@@ -53,8 +60,9 @@ public class ProductService {
         return repository.findAllProducts();
     }
 
-    public void changeProductInformation(Long id, Product product, Product product2) {
+    public void changeProductInformation(Long id, Product product) {
         findProductById(id);
+        actualPriceCalculate(product);
         validationService.validate(product);
         repository.changeProductInformation(id, product);
 

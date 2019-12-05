@@ -22,7 +22,7 @@ public class Product {
     @Column(name = "discount")
     private BigDecimal discount;
     @Column(name = "actual_price")
-    private BigDecimal actualPrice;
+    private BigDecimal actual_price;
     @Column(name = "description")
     private String description;
     @Column(name = "category")
@@ -49,11 +49,11 @@ public class Product {
         this.category = category;
     }
 
-    public Product(Category category, String name, BigDecimal price, BigDecimal discount, BigDecimal actualPrice, String description) {
+    public Product(Category category, String name, BigDecimal price, BigDecimal discount, BigDecimal actual_price, String description) {
         this.name = name;
         this.price = price;
         this.discount = discount;
-        this.actualPrice = actualPrice;
+        this.actual_price = actual_price;
         this.description = description;
         this.category = category;
 
@@ -95,12 +95,12 @@ public class Product {
         this.discount = discount;
     }
 
-    public void setActualPrice(BigDecimal actualPrice) {
-        this.actualPrice = actualPrice;
+    public void setActual_price(BigDecimal actual_price) {
+        this.actual_price = actual_price;
     }
 
-    public BigDecimal getActualPrice() {
-        return actualPrice;
+    public BigDecimal getActual_price() {
+        return actual_price;
     }
 
     public String getDescription() {
@@ -120,7 +120,7 @@ public class Product {
                 Objects.equals(getName(), product.getName()) &&
                 Objects.equals(getPrice(), product.getPrice()) &&
                 Objects.equals(getDiscount(), product.getDiscount()) &&
-                Objects.equals(actualPrice, product.actualPrice) &&
+                Objects.equals(actual_price, product.actual_price) &&
                 Objects.equals(getDescription(), product.getDescription());
     }
 
@@ -131,7 +131,7 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", discount=" + discount +
-                ", actualPrice=" + actualPrice +
+                ", actualPrice=" + actual_price +
                 ", description='" + description + '\'' +
                 ", category=" + category +
                 '}';
@@ -139,6 +139,6 @@ public class Product {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getPrice(), getDiscount(), actualPrice, getDescription());
+        return Objects.hash(getId(), getName(), getPrice(), getDiscount(), actual_price, getDescription());
     }
 }

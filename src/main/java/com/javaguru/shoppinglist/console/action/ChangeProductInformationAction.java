@@ -46,7 +46,7 @@ public class ChangeProductInformationAction implements Action {
         product.setPrice(price);
         product.setDiscount(discount);
         product.setDescription(description);
-        productService.changeProductInformation(id, product, product2);
+        productService.changeProductInformation(id, product);
 
         System.out.println("Result: " + id);
         System.out.println("product="+product);

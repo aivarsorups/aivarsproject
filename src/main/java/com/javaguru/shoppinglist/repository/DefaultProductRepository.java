@@ -24,7 +24,7 @@ public class DefaultProductRepository implements ProductRepository {
     private void calculateActualPrice(Product product) {
         BigDecimal actualPrice = product.getPrice().subtract(product.getDiscount()
                 .divide(MAX_PERCENT_FOR_DISCOUNT).multiply(product.getPrice()));
-        product.setActualPrice(actualPrice);
+        product.setActual_price(actualPrice);
     }
     private final JdbcTemplate jdbcTemplate;
 
@@ -47,7 +47,7 @@ public class DefaultProductRepository implements ProductRepository {
             ps.setString(2, product.getCategory().name());
             ps.setBigDecimal(3, product.getPrice());
             ps.setBigDecimal(4, product.getDiscount());
-            ps.setBigDecimal(5, product.getActualPrice());
+            ps.setBigDecimal(5, product.getActual_price());
             ps.setString(6, product.getDescription());
 
             return ps;
@@ -106,7 +106,7 @@ public class DefaultProductRepository implements ProductRepository {
     public void changeProductInformation(Long id, Product product) {
         calculateActualPrice(product);
         String SQL = "UPDATE products2 SET  name=?, category=?, price=?, discount=?, actualPrice=?,  description=?  WHERE id=?";
-        jdbcTemplate.update(SQL, product.getName(), product.getCategory().name(), product.getPrice(), product.getDiscount(), product.getActualPrice(), product.getDescription(), id);
+        jdbcTemplate.update(SQL, product.getName(), product.getCategory().name(), product.getPrice(), product.getDiscount(), product.getActual_price(), product.getDescription(), id);
 
     }
 }

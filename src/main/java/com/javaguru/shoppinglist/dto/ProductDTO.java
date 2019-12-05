@@ -10,19 +10,19 @@ private String name;
 private Category category;
 private BigDecimal price;
 private BigDecimal discount;
-private BigDecimal actualPrice;
+private BigDecimal actual_price;
 private String Description;
 
     public ProductDTO() {
     }
 
-    public ProductDTO(Long id, String name, Category category, BigDecimal price, BigDecimal discount, BigDecimal actualPrice, String description) {
+    public ProductDTO(Long id, String name, Category category, BigDecimal price, BigDecimal discount, BigDecimal actual_price, String description) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.price = price;
         this.discount = discount;
-        this.actualPrice = actualPrice;
+        this.actual_price = actual_price;
         Description = description;
     }
 
@@ -66,12 +66,12 @@ private String Description;
         this.discount = discount;
     }
 
-    public BigDecimal getActualPrice() {
-        return actualPrice;
+    public BigDecimal getActual_price() {
+        return actual_price;
     }
 
-    public void setActualPrice(BigDecimal actualPrice) {
-        this.actualPrice = actualPrice;
+    public void setActual_price(BigDecimal actual_price) {
+        this.actual_price = actual_price;
     }
 
     public String getDescription() {
